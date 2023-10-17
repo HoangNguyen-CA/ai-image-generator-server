@@ -1,7 +1,8 @@
 const { createClient } = require("@supabase/supabase-js");
 const uuid = require("uuid");
-const AppError = require("../errorHandling/AppError");
 const fetch = require("node-fetch");
+
+const AppError = require("../errorHandling/AppError");
 
 const options = {
   schema: "public",
