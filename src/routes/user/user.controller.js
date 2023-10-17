@@ -1,11 +1,11 @@
-const S3Upload = require("../../services/S3Upload");
-const { getUserWithAuthId } = require("../../models/users.model");
+const upload = require('../../services/bucketUpload');
+const { getUserWithAuthId } = require('../../models/users.model');
 const {
   postUserImage,
   getUserImages,
   deleteUserImage,
-} = require("../../models/images.model");
-const AppError = require("../../errorHandling/AppError");
+} = require('../../models/images.model');
+const AppError = require('../../errorHandling/AppError');
 
 async function httpGetUser(req, res) {
   const authId = req.auth.payload.sub;
@@ -20,7 +20,7 @@ async function httpPostUserImage(req, res) {
   const reqImageURL = req.body?.imageURL;
   const prompt = req.body?.prompt;
 
-  const S3imageURL = await S3Upload(reqImageURL);
+  const S3imageURL = await upload(reqImageURL);
   const postedImage = await postUserImage(authId, S3imageURL, prompt);
   res.status(200).json({
     image: postedImage,
